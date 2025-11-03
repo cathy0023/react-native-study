@@ -53,8 +53,9 @@ export default function PracticeCard({ practice }: PracticeCardProps) {
 
   return (
     <TouchableOpacity
-      // 卡片容器样式：白色背景、圆角、阴影效果
-      className="bg-white rounded-2xl p-5 mb-4 shadow-sm flex-row"
+      // 卡片容器样式：纯白色背景、圆角、增强阴影效果使其更突出
+      // 使用 shadow-md 增强阴影，让卡片在灰色背景上更明显
+      className="bg-white rounded-2xl p-5 mb-4 shadow-md flex-row border border-gray-100"
       // 添加点击反馈效果
       activeOpacity={0.9}
       // 绑定点击事件

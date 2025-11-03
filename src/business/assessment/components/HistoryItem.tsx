@@ -39,8 +39,9 @@ interface HistoryItemProps {
 export default function HistoryItem({ record }: HistoryItemProps) {
   return (
     <View
-      // 卡片容器样式：白色背景、圆角、阴影效果
-      className="bg-white rounded-xl p-4 mb-3 shadow-sm flex-row justify-between items-center"
+      // 卡片容器样式：纯白色背景、圆角、增强阴影效果使其更突出
+      // 使用 shadow-md 增强阴影，让卡片在灰色背景上更明显
+      className="bg-white rounded-xl p-4 mb-3 shadow-md flex-row justify-between items-center border border-gray-100"
     >
       {/* 左侧信息区域 */}
       <View className="flex-1">
