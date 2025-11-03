@@ -1,0 +1,12 @@
+---
+description: 为 React Native Expo 开发提供额外指导，例如使用 TypeScript、StyleSheet 进行样式设计，以及使用 Expo 的安全存储处理敏感数据。
+globs: src/**/*.*
+---
+
+- 使用 TypeScript 确保类型安全
+- 使用 StyleSheet 实现适当的样式管理
+- 利用 Expo 的矢量图标库
+- 使用 Expo 的安全存储处理敏感数据
+- 实现适当的离线功能支持
+- 遵循 React Native 性能最佳实践
+- 使用 Expo 的 OTA（Over-The-Air）更新功能实现快速部署

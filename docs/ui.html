@@ -1,0 +1,951 @@
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>智能测评系统 - 移动端优化</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: #333;
+        line-height: 1.5;
+        padding: 0;
+        margin: 0;
+      }
+
+      .container {
+        max-width: 100%;
+        padding: 16px;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 24px;
+        padding-top: 12px;
+      }
+
+      .logo {
+        width: 40px;
+        height: 40px;
+        background: linear-gradient(135deg, #5ed5f9, #3458f8);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        margin-right: 12px;
+      }
+
+      .header-text h1 {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 2px;
+      }
+
+      .header-text p {
+        font-size: 14px;
+        color: #666;
+      }
+
+      .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .section-title span {
+        font-size: 14px;
+        font-weight: normal;
+        color: #3458f8;
+      }
+
+      /* 练习卡片样式 */
+      .practice-cards {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 32px;
+      }
+
+      .practice-card {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        display: flex;
+        transition: transform 0.2s, box-shadow 0.2s;
+      }
+
+      .practice-card:active {
+        transform: translateY(2px);
+        box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #5ed5f9, #3458f8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+        font-size: 20px;
+        margin-right: 16px;
+        flex-shrink: 0;
+      }
+
+      .card-content {
+        flex: 1;
+      }
+
+      .card-title {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      .card-desc {
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 12px;
+        line-height: 1.4;
+      }
+
+      .start-btn {
+        background: #3458f8;
+        color: white;
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 14px;
+        font-weight: 500;
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        transition: background 0.2s;
+        margin-left: auto;
+      }
+
+      .start-btn:active {
+        background: #5a4ae0;
+      }
+
+      .start-btn::after {
+        content: "→";
+        margin-left: 4px;
+        font-weight: bold;
+      }
+
+      /* 历史记录样式 */
+      .history-section {
+        margin-bottom: 60px;
+      }
+
+      .history-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .history-item {
+        background: white;
+        border-radius: 12px;
+        padding: 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .history-info {
+        flex: 1;
+      }
+
+      .history-name {
+        font-size: 15px;
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .history-details {
+        display: flex;
+        font-size: 13px;
+        color: #888;
+      }
+
+      .history-details span {
+        margin-right: 16px;
+      }
+
+      .history-score {
+        font-weight: 600;
+        color: #3458f8;
+        font-size: 16px;
+      }
+
+      .no-history {
+        text-align: center;
+        padding: 40px 20px;
+        color: #999;
+        font-size: 14px;
+      }
+
+      /* 底部导航 */
+      .bottom-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: white;
+        display: flex;
+        padding: 12px 0;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05);
+        z-index: 100;
+      }
+
+      .nav-item {
+        flex: 1;
+        text-align: center;
+        font-size: 12px;
+        color: #666;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .nav-item.active {
+        color: #3458f8;
+      }
+
+      .nav-icon {
+        width: 24px;
+        height: 24px;
+        margin-bottom: 4px;
+        background: #eee;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .nav-item.active .nav-icon {
+        background: #3458f8;
+        color: white;
+      }
+    </style>
+    <style data-id="immersive-translate-input-injected-css">
+      .immersive-translate-input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        z-index: 2147483647;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .immersive-translate-attach-loading::after {
+        content: " ";
+
+        --loading-color: #f78fb6;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        display: block;
+        margin: 12px auto;
+        position: relative;
+        color: white;
+        left: -100px;
+        box-sizing: border-box;
+        animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-2000%, -50%);
+        z-index: 100;
+      }
+
+      .immersive-translate-loading-spinner {
+        vertical-align: middle !important;
+        width: 10px !important;
+        height: 10px !important;
+        display: inline-block !important;
+        margin: 0 4px !important;
+        border: 2px rgba(221, 244, 255, 0.6) solid !important;
+        border-top: 2px rgba(0, 0, 0, 0.375) solid !important;
+        border-left: 2px rgba(0, 0, 0, 0.375) solid !important;
+        border-radius: 50% !important;
+        padding: 0 !important;
+        -webkit-animation: immersive-translate-loading-animation 0.6s infinite
+          linear !important;
+        animation: immersive-translate-loading-animation 0.6s infinite linear !important;
+      }
+
+      @-webkit-keyframes immersive-translate-loading-animation {
+        from {
+          -webkit-transform: rotate(0deg);
+        }
+
+        to {
+          -webkit-transform: rotate(359deg);
+        }
+      }
+
+      @keyframes immersive-translate-loading-animation {
+        from {
+          transform: rotate(0deg);
+        }
+
+        to {
+          transform: rotate(359deg);
+        }
+      }
+
+      .immersive-translate-input-loading {
+        --loading-color: #f78fb6;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        display: block;
+        margin: 12px auto;
+        position: relative;
+        color: white;
+        left: -100px;
+        box-sizing: border-box;
+        animation: immersiveTranslateShadowRolling 1.5s linear infinite;
+      }
+
+      @keyframes immersiveTranslateShadowRolling {
+        0% {
+          box-shadow: 0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0),
+            0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+        }
+
+        12% {
+          box-shadow: 100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0),
+            0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+        }
+
+        25% {
+          box-shadow: 110px 0 var(--loading-color), 100px 0 var(--loading-color),
+            0px 0 rgba(255, 255, 255, 0), 0px 0 rgba(255, 255, 255, 0);
+        }
+
+        36% {
+          box-shadow: 120px 0 var(--loading-color), 110px 0 var(--loading-color),
+            100px 0 var(--loading-color), 0px 0 rgba(255, 255, 255, 0);
+        }
+
+        50% {
+          box-shadow: 130px 0 var(--loading-color), 120px 0 var(--loading-color),
+            110px 0 var(--loading-color), 100px 0 var(--loading-color);
+        }
+
+        62% {
+          box-shadow: 200px 0 rgba(255, 255, 255, 0),
+            130px 0 var(--loading-color), 120px 0 var(--loading-color),
+            110px 0 var(--loading-color);
+        }
+
+        75% {
+          box-shadow: 200px 0 rgba(255, 255, 255, 0),
+            200px 0 rgba(255, 255, 255, 0), 130px 0 var(--loading-color),
+            120px 0 var(--loading-color);
+        }
+
+        87% {
+          box-shadow: 200px 0 rgba(255, 255, 255, 0),
+            200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+            130px 0 var(--loading-color);
+        }
+
+        100% {
+          box-shadow: 200px 0 rgba(255, 255, 255, 0),
+            200px 0 rgba(255, 255, 255, 0), 200px 0 rgba(255, 255, 255, 0),
+            200px 0 rgba(255, 255, 255, 0);
+        }
+      }
+
+      .immersive-translate-toast {
+        display: flex;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        right: 0;
+        top: 1%;
+        width: fit-content;
+        padding: 12px 20px;
+        margin: auto;
+        overflow: auto;
+        background: #fef6f9;
+        box-shadow: 0px 4px 10px 0px rgba(0, 10, 30, 0.06);
+        font-size: 15px;
+        border-radius: 8px;
+        color: #333;
+      }
+
+      .immersive-translate-toast-content {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .immersive-translate-toast-hidden {
+        margin: 0 20px 0 72px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+
+      .immersive-translate-toast-close {
+        color: #666666;
+        font-size: 20px;
+        font-weight: bold;
+        padding: 0 10px;
+        cursor: pointer;
+      }
+
+      @media screen and (max-width: 768px) {
+        .immersive-translate-toast {
+          top: 0;
+          padding: 12px 0px 0 10px;
+        }
+        .immersive-translate-toast-content {
+          flex-direction: column;
+          text-align: center;
+        }
+        .immersive-translate-toast-hidden {
+          margin: 10px auto;
+        }
+      }
+
+      .immersive-translate-dialog {
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        display: flex;
+        width: 300px;
+        flex-direction: column;
+        align-items: center;
+        font-size: 15px;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        height: fit-content;
+        border-radius: 20px;
+        background-color: #fff;
+      }
+
+      .immersive-translate-modal {
+        display: none;
+        position: fixed;
+        z-index: 2147483647;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgb(0, 0, 0);
+        background-color: rgba(0, 0, 0, 0.4);
+        font-size: 15px;
+      }
+
+      .immersive-translate-modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 40px 24px 24px;
+        border-radius: 12px;
+        width: 350px;
+        font-family: system-ui, -apple-system, "Segoe UI", "Roboto", "Ubuntu",
+          "Cantarell", "Noto Sans", sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        position: relative;
+      }
+
+      @media screen and (max-width: 768px) {
+        .immersive-translate-modal-content {
+          margin: 25% auto !important;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        .immersive-translate-modal-content {
+          width: 80vw !important;
+          margin: 20vh auto !important;
+          padding: 20px 12px 12px !important;
+        }
+
+        .immersive-translate-modal-title {
+          font-size: 14px !important;
+        }
+
+        .immersive-translate-modal-body {
+          font-size: 13px !important;
+          max-height: 60vh !important;
+        }
+
+        .immersive-translate-btn {
+          font-size: 13px !important;
+          padding: 8px 16px !important;
+          margin: 0 4px !important;
+        }
+
+        .immersive-translate-modal-footer {
+          gap: 6px !important;
+          margin-top: 16px !important;
+        }
+      }
+
+      .immersive-translate-modal .immersive-translate-modal-content-in-input {
+        max-width: 500px;
+      }
+      .immersive-translate-modal-content-in-input
+        .immersive-translate-modal-body {
+        text-align: left;
+        max-height: unset;
+      }
+
+      .immersive-translate-modal-title {
+        text-align: center;
+        font-size: 16px;
+        font-weight: 700;
+        color: #333333;
+      }
+
+      .immersive-translate-modal-body {
+        text-align: center;
+        font-size: 14px;
+        font-weight: 400;
+        color: #333333;
+        margin-top: 24px;
+        word-break: break-all;
+      }
+
+      @media screen and (max-width: 768px) {
+        .immersive-translate-modal-body {
+          max-height: 250px;
+          overflow-y: auto;
+        }
+      }
+
+      .immersive-translate-close {
+        color: #666666;
+        position: absolute;
+        right: 16px;
+        top: 16px;
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .immersive-translate-close:hover,
+      .immersive-translate-close:focus {
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .immersive-translate-modal-footer {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 24px;
+      }
+
+      .immersive-translate-btn {
+        width: fit-content;
+        color: #fff;
+        background-color: #ea4c89;
+        border: none;
+        font-size: 14px;
+        margin: 0 8px;
+        padding: 9px 30px;
+        border-radius: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+
+      .immersive-translate-btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .immersive-translate-btn:hover {
+        background-color: #f082ac;
+      }
+      .immersive-translate-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .immersive-translate-btn:disabled:hover {
+        background-color: #ea4c89;
+      }
+
+      .immersive-translate-link-btn {
+        background-color: transparent;
+        color: #ea4c89;
+        border: none;
+        cursor: pointer;
+        height: 30px;
+        line-height: 30px;
+      }
+
+      .immersive-translate-cancel-btn {
+        /* gray color */
+        background-color: rgb(89, 107, 120);
+      }
+
+      .immersive-translate-cancel-btn:hover {
+        background-color: hsl(205, 20%, 32%);
+      }
+
+      .immersive-translate-action-btn {
+        background-color: transparent;
+        color: #ea4c89;
+        border: 1px solid #ea4c89;
+      }
+
+      .immersive-translate-btn svg {
+        margin-right: 5px;
+      }
+
+      .immersive-translate-link {
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-drag: none;
+        text-decoration: none;
+        color: #ea4c89;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .immersive-translate-primary-link {
+        cursor: pointer;
+        user-select: none;
+        -webkit-user-drag: none;
+        text-decoration: none;
+        color: #ea4c89;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .immersive-translate-modal input[type="radio"] {
+        margin: 0 6px;
+        cursor: pointer;
+      }
+
+      .immersive-translate-modal label {
+        cursor: pointer;
+      }
+
+      .immersive-translate-close-action {
+        position: absolute;
+        top: 2px;
+        right: 0px;
+        cursor: pointer;
+      }
+
+      .imt-image-status {
+        background-color: rgba(0, 0, 0, 0.5) !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        border-radius: 16px !important;
+      }
+      .imt-image-status img,
+      .imt-image-status svg,
+      .imt-img-loading {
+        width: 28px !important;
+        height: 28px !important;
+        margin: 0 0 8px 0 !important;
+        min-height: 28px !important;
+        min-width: 28px !important;
+        position: relative !important;
+      }
+      .imt-img-loading {
+        background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADgAAAA4CAMAAACfWMssAAAAtFBMVEUAAAD////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////oK74hAAAAPHRSTlMABBMIDyQXHwyBfFdDMSw+OjXCb+5RG51IvV/k0rOqlGRM6KKMhdvNyZBz9MaupmxpWyj437iYd/yJVNZeuUC7AAACt0lEQVRIx53T2XKiUBCA4QYOiyCbiAsuuGBcYtxiYtT3f6/pbqoYHVFO5r+iivpo6DpAWYpqeoFfr9f90DsYAuRSWkFnPO50OgR9PwiCUFcl2GEcx+N/YBh6pvKaefHlUgZd1zVe0NbYcQjGBfzrPE8Xz8aF+71D8gG6DHFPpc4a7xFiCDuhaWgKgGIJQ3d5IMGDrpS4S5KgpIm+en9f6PlAhKby4JwEIxlYJV9h5k5nee9GoxHJ2IDSNB0dwdad1NAxDJ/uXDHYmebdk4PdbkS58CIVHdYSUHTYYRWOJblWSyu2lmy3KNFVJNBhxcuGW4YBVCbYGRZwIooipHsNqjM4FbgOQqQqSKQQU9V8xmi1QlgHqQQ6DDBvRUVCDirs+EzGDGOQTCATgtYTnbCVLgsVgRE0T1QE0qHCFAht2z6dLvJQs3Lo2FQoDxWNUiBhaP4eRgwNkI+dAjVOA/kUrIDwf3CG8NfNOE0eiFotSuo+rBiq8tD9oY4Qzc6YJw99hl1wzpQvD7ef2M8QgnOGJfJw+EltQc+oX2yn907QB22WZcvlUpd143dqQu+8pCJZuGE4xCuPXJqqcs5sNpsI93Rmzym1k4Npk+oD1SH3/a3LOK/JpUBpWfqNySxWzCfNCUITuDG5dtuphrUJ1myeIE9bIsPiKrfqTai5WZxbhtNphYx6GEIHihyGFTI69lje/rxajdh0s0msZ0zYxyPLhYCb1CyHm9Qsd2H37Y3lugVwL9kNh8Ot8cha6fUNQ8nuXi5z9/ExsAO4zQrb/ev1yrCB7lGyQzgYDGuxq1toDN/JGvN+HyWNHKB7zEoK+PX11e12G431erGYzwmytAWU56fkMHY5JJnDRR2eZji3AwtIcrEV8Cojat/BdQ7XOwGV1e1hDjGGjXbdArm8uJZtCH5MbcctVX8A1WpqumJHwckAAAAASUVORK5CYII=");
+        background-size: 28px 28px;
+        animation: image-loading-rotate 1s linear infinite !important;
+      }
+
+      .imt-image-status span {
+        color: var(--bg-2, #fff) !important;
+        font-size: 14px !important;
+        line-height: 14px !important;
+        font-weight: 500 !important;
+        font-family: "PingFang SC", Arial, sans-serif !important;
+      }
+
+      .imt-primary-button {
+        display: flex;
+        padding: 12px 80px;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        border-radius: 8px;
+        background: #ea4c89;
+        color: #fff;
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 24px;
+        border: none;
+        cursor: pointer;
+      }
+
+      .imt-retry-text {
+        color: #999;
+        text-align: center;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 21px;
+        cursor: pointer;
+      }
+
+      .imt-action-container {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .imt-modal-content-text {
+        text-align: left;
+        color: #333;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 24px;
+      }
+
+      @keyframes image-loading-rotate {
+        from {
+          transform: rotate(360deg);
+        }
+        to {
+          transform: rotate(0deg);
+        }
+      }
+
+      .imt-linear-gradient-text {
+        background: linear-gradient(
+          90deg,
+          #00a6ff 0%,
+          #c369ff 52.4%,
+          #ff4590 100%
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .imt-flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .imt-linear-black-btn {
+        border-radius: 50px;
+        background: linear-gradient(66deg, #222 19%, #696969 94.25%);
+        height: 48px;
+        width: 100%;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        justify-content: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="logo">U</div>
+        <div class="header-text">
+          <h1>测评中心</h1>
+          <p>选择一个AI智能体，开始模拟咨询</p>
+        </div>
+      </div>
+
+      <div class="section-title">
+        开始新的练习！
+        <span>对话完成后将生成详细的AI点评报告</span>
+      </div>
+
+      <div class="practice-cards">
+        <div class="practice-card">
+          <div class="card-icon">A</div>
+          <div class="card-content">
+            <div class="card-title">AI患者-焦虑症（极速版）</div>
+            <div class="card-desc">
+              一位患有焦虑症的AI患者，用于心理咨询师角色扮演练习
+            </div>
+            <button class="start-btn">开始练习</button>
+          </div>
+        </div>
+
+        <div class="practice-card">
+          <div class="card-icon">A</div>
+          <div class="card-content">
+            <div class="card-title">AI患者-焦虑症（深度思考版）</div>
+            <div class="card-desc">
+              一位患有焦虑症的AI患者，用于心理咨询师角色扮演练习
+            </div>
+            <button class="start-btn">开始练习</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="history-section">
+        <div class="section-title">历史练习记录</div>
+
+        <div class="history-list">
+          <div class="history-item">
+            <div class="history-info">
+              <div class="history-name">与焦虑症患者对话练习</div>
+              <div class="history-details">
+                <span>2023-10-15</span>
+                <span>12分钟</span>
+              </div>
+            </div>
+            <div class="history-score">88分</div>
+          </div>
+
+          <div class="history-item">
+            <div class="history-info">
+              <div class="history-name">深度思考版练习记录</div>
+              <div class="history-details">
+                <span>2023-10-10</span>
+                <span>25分钟</span>
+              </div>
+            </div>
+            <div class="history-score">92分</div>
+          </div>
+
+          <div class="history-item">
+            <div class="history-info">
+              <div class="history-name">首次焦虑症咨询练习</div>
+              <div class="history-details">
+                <span>2023-10-05</span>
+                <span>18分钟</span>
+              </div>
+            </div>
+            <div class="history-score">85分</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item active">
+        <div class="nav-icon">●</div>
+        <div>测评中心</div>
+      </div>
+      <div class="nav-item">
+        <div class="nav-icon">●</div>
+        <div>控制台</div>
+      </div>
+    </div>
+
+    <script>
+      // 为开始练习按钮添加点击效果
+      document.querySelectorAll(".start-btn").forEach((button) => {
+        button.addEventListener("click", function () {
+          // 这里可以添加开始练习的逻辑
+          alert("开始练习功能即将开启");
+        });
+      });
+
+      // 底部导航切换
+      document.querySelectorAll(".nav-item").forEach((item) => {
+        item.addEventListener("click", function () {
+          document.querySelectorAll(".nav-item").forEach((i) => {
+            i.classList.remove("active");
+          });
+          this.classList.add("active");
+        });
+      });
+    </script>
+    <!-- Code injected by live-server -->
+    <script>
+      // <![CDATA[  <-- For SVG support
+      if ("WebSocket" in window) {
+        (function () {
+          function refreshCSS() {
+            var sheets = [].slice.call(document.getElementsByTagName("link"));
+            var head = document.getElementsByTagName("head")[0];
+            for (var i = 0; i < sheets.length; ++i) {
+              var elem = sheets[i];
+              var parent = elem.parentElement || head;
+              parent.removeChild(elem);
+              var rel = elem.rel;
+              if (
+                (elem.href && typeof rel != "string") ||
+                rel.length == 0 ||
+                rel.toLowerCase() == "stylesheet"
+              ) {
+                var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, "");
+                elem.href =
+                  url +
+                  (url.indexOf("?") >= 0 ? "&" : "?") +
+                  "_cacheOverride=" +
+                  new Date().valueOf();
+              }
+              parent.appendChild(elem);
+            }
+          }
+          var protocol =
+            window.location.protocol === "http:" ? "ws://" : "wss://";
+          var address =
+            protocol + window.location.host + window.location.pathname + "/ws";
+          var socket = new WebSocket(address);
+          socket.onmessage = function (msg) {
+            if (msg.data == "reload") window.location.reload();
+            else if (msg.data == "refreshcss") refreshCSS();
+          };
+          if (
+            sessionStorage &&
+            !sessionStorage.getItem("IsThisFirstTime_Log_From_LiveServer")
+          ) {
+            console.log("Live reload enabled.");
+            sessionStorage.setItem("IsThisFirstTime_Log_From_LiveServer", true);
+          }
+        })();
+      } else {
+        console.error(
+          "Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading."
+        );
+      }
+      // ]]>
+    </script>
+
+    <script
+      type="text/javascript"
+      src="chrome-extension://bngpiglbalmenaabohcooocpnljgfemj/injected.js"
+    ></script>
+  </body>
+  <div id="immersive-translate-popup" style="all: initial"></div>
+</html>

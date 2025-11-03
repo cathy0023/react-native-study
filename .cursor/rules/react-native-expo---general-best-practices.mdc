@@ -1,0 +1,11 @@
+---
+description: 在 src 目录中应用通用的 React Native Expo 最佳实践，例如使用函数式组件配合 Hooks 和 Expo SDK 特性。
+globs: src/**/*.*
+---
+
+- 使用函数式组件配合 Hooks
+- 充分利用 Expo SDK 的特性和 API
+- 使用 React Navigation 实现正确的导航
+- 使用 Expo 的资源系统处理图片和字体
+- 实现适当的错误处理和崩溃报告
+- 使用 Expo 的推送通知系统

@@ -1,0 +1,47 @@
+---
+alwaysApply: true
+---
+
+# React Native Expo 最佳实践规则
+
+## React Native Expo 最佳实践
+
+### 组件开发规范
+- 使用函数式组件配合 Hooks
+- 充分利用 Expo SDK 的特性和 API
+- 使用 Expo Router 实现正确的导航
+- 使用 Expo 的资源系统处理图片和字体
+- 实现适当的错误处理和崩溃报告
+- 使用 Expo 的推送通知系统
+
+### 文件夹结构
+
+推荐的项目文件夹结构：
+```
+assets/
+src/
+  components/     # 可复用组件
+  screens/        # 页面组件
+  navigation/     # 导航配置
+  hooks/          # 自定义 Hooks
+  utils/          # 工具函数
+App.js            # 应用入口
+app.json          # Expo 配置文件
+```
+
+### 额外开发指导
+
+1. **类型安全**：使用 TypeScript 确保类型安全
+2. **样式管理**：使用 StyleSheet 实现适当的样式
+3. **图标系统**：使用 Expo 的矢量图标库
+4. **数据安全**：使用 Expo 的安全存储处理敏感数据
+5. **离线支持**：实现适当的离线功能支持
+6. **性能优化**：遵循 React Native 性能最佳实践
+7. **OTA 更新**：使用 Expo 的 OTA（Over-The-Air）更新功能实现快速部署
+
+### 代码风格要求
+
+- 优先使用函数式组件和 React Hooks
+- 遵循 React Native 和 Expo 的官方最佳实践
+- 保持代码简洁、可读、可维护
+- 充分利用 Expo 提供的工具和 API，避免重复造轮子
