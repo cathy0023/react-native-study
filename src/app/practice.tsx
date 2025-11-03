@@ -4,6 +4,7 @@
  * 设计思想：
  * 这是一个简单的占位页面，用于展示练习功能入口。
  * 当前只显示占位文字，后续可以扩展为实际的对话练习界面。
+ * 使用 gluestack UI 组件库实现，提供统一的样式和交互体验。
  * 
  * 功能说明：
  * - 显示练习页面的占位文字
@@ -18,9 +19,11 @@
  * - 使用 expo-router 的 useLocalSearchParams 获取路由参数
  * - 使用 expo-router 的 useRouter 进行页面导航
  * - 使用 Stack Navigator 的导航栈功能支持返回
+ * - 使用 gluestack UI 的 Box、Text、Pressable、HStack 组件进行UI渲染
+ * - gluestack UI 组件使用样式属性（如 bg、p、rounded）而不是 className
  */
 import React from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { Box, Text, Pressable, HStack } from '@gluestack-ui/themed';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
@@ -53,46 +56,53 @@ export default function Practice() {
   const dynamicPaddingTop = insets.top + 16;
 
   return (
-    <View className="flex-1 bg-gray-50">
+    <Box flex={1} bg="$gray50">
       {/* 返回按钮区域 */}
       {/* 
-        注意：Tailwind CSS 在构建时扫描代码生成 CSS，动态生成的类名无法被识别
-        因此对于动态值（如根据设备状态栏高度计算的 paddingTop），必须使用内联样式
-        静态样式使用 Tailwind，动态样式使用 style prop，这是最佳实践
+        注意：对于动态值（如根据设备状态栏高度计算的 paddingTop），必须使用内联样式
+        gluestack UI 的样式属性主要用于静态样式，动态样式使用 style prop
       */}
-      <View 
-        className="flex-row items-center px-4 pb-4 bg-white"
+      <Box
+        flexDirection="row"
+        alignItems="center"
+        px="$4"
+        pb="$4"
+        bg="$white"
         style={{ 
           paddingTop: dynamicPaddingTop,
         }}
       >
         {/* 返回按钮 */}
-        <TouchableOpacity
-          className="flex-row items-center"
+        <Pressable
+          flexDirection="row"
+          alignItems="center"
           onPress={handleGoBack}
-          activeOpacity={0.7}
         >
           {/* 返回箭头图标（使用文字模拟） */}
-          <Text className="text-xl text-gray-700 mr-2">←</Text>
+          <Text fontSize="$xl" color="$gray700" mr="$2">
+            ←
+          </Text>
           {/* 返回文字 */}
-          <Text className="text-base text-gray-700">返回</Text>
-        </TouchableOpacity>
-      </View>
+          <Text fontSize="$md" color="$gray700">
+            返回
+          </Text>
+        </Pressable>
+      </Box>
 
       {/* 页面内容区域 */}
-      <View className="flex-1 items-center justify-center px-4">
+      <Box flex={1} alignItems="center" justifyContent="center" px="$4">
         {/* 占位文字 */}
-        <Text className="text-xl text-gray-600 mb-4">
+        <Text fontSize="$xl" color="$gray600" mb="$4">
           练习页面
         </Text>
         {/* 显示练习信息（如果有参数） */}
         {id && type && (
-          <Text className="text-sm text-gray-500">
+          <Text fontSize="$sm" color="$gray500">
             练习ID: {id} | 类型: {type === 'fast' ? '极速版' : '深度思考版'}
           </Text>
         )}
-      </View>
-    </View>
+      </Box>
+    </Box>
   );
 }
 
