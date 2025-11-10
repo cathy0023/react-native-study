@@ -41,3 +41,41 @@ export interface HistoryRecord {
   score: number;
 }
 
+/**
+ * 消息发送者类型
+ * 区分消息是来自AI患者还是用户
+ */
+export type MessageSender = 'ai' | 'user';
+
+/**
+ * 聊天消息数据接口
+ * 用于展示聊天对话中的单条消息
+ */
+export interface ChatMessage {
+  /** 消息的唯一标识符 */
+  id: string;
+  /** 消息的发送者：AI患者或用户 */
+  sender: MessageSender;
+  /** 消息的内容文本 */
+  content: string;
+  /** 消息的发送时间戳（可选） */
+  timestamp?: number;
+}
+
+/**
+ * 练习辅助信息数据接口
+ * 包含练习相关的背景信息和指导内容
+ */
+export interface PracticeInfo {
+  /** AI患者的标题，例如："AI患者-焦虑症(极速版)" */
+  title: string;
+  /** AI患者的描述信息 */
+  description: string;
+  /** 来访者信息：描述AI患者的当前状况 */
+  visitorInfo: string;
+  /** 背景资料：提供更多关于AI患者背景的信息 */
+  background: string;
+  /** 咨询目标：说明这次咨询练习的目标 */
+  consultationGoals: string;
+}
+

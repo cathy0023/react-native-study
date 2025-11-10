@@ -20,7 +20,10 @@
  * - gluestack UI 组件使用样式属性（如 bg、p、rounded）而不是 className
  */
 import React from 'react';
-import { Box, HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { Box } from '@/components/ui/box';
+import { HStack } from '@/components/ui/hstack';
+import { Pressable } from '@/components/ui/pressable';
+import { Text } from '@/components/ui/text';
 import { usePathname, useRouter } from 'expo-router';
 
 /**
@@ -68,27 +71,9 @@ export default function BottomNav() {
   return (
     <Box
       // 固定在底部，使用绝对定位
-      position="absolute"
-      bottom={0}
-      left={0}
-      right={0}
-      // 白色背景
-      bg="$white"
-      // 水平布局，使用 flex-row
-      flexDirection="row"
-      // 垂直内边距
-      py="$3"
-      // 顶部边框 - 使用非常浅的灰色，几乎不可见
-      // 如果不需要边框，可以完全移除这两行
-      borderTopWidth={1}
-      borderTopColor="rgba(0, 0, 0, 0.05)"
-      // 阴影效果（iOS）
-      shadowColor="$black"
-      shadowOffset={{ width: 0, height: -2 }}
-      shadowOpacity={0.1}
-      shadowRadius={4}
-      // Android 阴影效果
-      elevation={5}
+      // 白色背景，水平布局
+      // 顶部边框和阴影效果
+      className="absolute bottom-0 left-0 right-0 bg-white flex-row py-3 border-t border-gray-100 shadow-md"
     >
       {navItems.map((item) => {
         // 判断当前导航项是否激活（当前路径是否匹配）
@@ -96,51 +81,34 @@ export default function BottomNav() {
           (item.path === '/assessment-center' && pathname === '/');
 
         return (
-          <Pressable
+          <Box
             key={item.path}
             // 使用 flex-1 让每个导航项平均分配空间
-            flex={1}
-            // 居中对齐
-            alignItems="center"
-            justifyContent="center"
-            // 绑定点击事件，跳转到对应页面
-            onPress={() => handleNavPress(item.path)}
+            className="flex-1"
           >
-            {/* 导航图标和文字容器 */}
-            <Box alignItems="center" justifyContent="center">
-              {/* 导航图标 - 使用实心圆点表示 */}
-              {/* 
-                修复方形变圆形的问题：
-                1. 确保宽高相等（使用相同的值）
-                2. 使用 rounded="$full" 创建完美的圆形
-                3. 添加 overflow: 'hidden' 确保圆角生效
-                4. 使用 aspectRatio 确保是正方形
-              */}
-              <Box
-                w="$6"
-                h="$6"
-                // 使用 rounded="$full" 创建完美的圆形
-                rounded="$full"
-                // 确保是正方形，避免渲染时出现方形闪烁
-                aspectRatio={1}
-                mb="$1"
-                // 根据激活状态设置背景色
-                bg={isActive ? '$blue600' : '$gray200'}
-                // 确保圆角正确渲染
-                overflow="hidden"
-              />
+            <Pressable
+              // 绑定点击事件，跳转到对应页面
+              onPress={() => handleNavPress(item.path)}
+              className="w-full"
+            >
+              {/* 导航图标和文字容器 */}
+              <Box className="flex flex-col items-center">
+                {/* 导航图标 - 使用实心圆点表示 */}
+                <Box
+                  // 圆形图标，根据激活状态设置背景色
+                  className={`w-6 h-6 rounded-full mb-1 ${isActive ? 'bg-blue-600' : 'bg-gray-200'}`}
+                />
 
-              {/* 导航文字 */}
-              <Text
-                fontSize="$xs"
-                // 根据激活状态设置文字颜色和字重
-                color={isActive ? '$blue600' : '$gray500'}
-                fontWeight={isActive ? '$medium' : '$normal'}
-              >
-                {item.label}
-              </Text>
-            </Box>
-          </Pressable>
+                {/* 导航文字 */}
+                <Text
+                  // 根据激活状态设置文字颜色和字重
+                  className={`text-xs ${isActive ? 'text-blue-600 font-medium' : 'text-gray-500'}`}
+                >
+                  {item.label}
+                </Text>
+              </Box>
+            </Pressable>
+          </Box>
         );
       })}
     </Box>

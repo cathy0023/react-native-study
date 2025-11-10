@@ -4,7 +4,7 @@
  * 设计思想：
  * 这是一个展示AI患者练习选项的卡片组件，每个卡片代表一个可选择的练习类型。
  * 卡片采用白色背景和圆角设计，提供清晰的视觉层次。
- * 使用 gluestack UI 组件库实现，提供统一的样式和交互体验。
+ * 使用 gluestack UI v3 组件库实现，提供统一的样式和交互体验。
  * 
  * 功能说明：
  * - 显示AI患者的图标（使用字母A表示）
@@ -16,12 +16,16 @@
  * 
  * 依赖关系：
  * - 依赖 expo-router 的 useRouter 进行页面跳转
- * - 使用 gluestack UI 的 Box、Text、Button、Pressable 组件进行UI渲染
+ * - 使用 gluestack UI v3 的 Box、Text、Button、Pressable 组件进行UI渲染
  * - 使用 PracticeCard 类型定义数据结构
- * - gluestack UI 组件使用样式属性（如 bg、p、rounded）而不是 className
+ * - 使用 className 属性应用 Tailwind CSS 样式，与 web 端 React 开发保持一致
  */
 import React from 'react';
-import { Box, Text, Button, ButtonText, Pressable, HStack } from '@gluestack-ui/themed';
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
+import { Button, ButtonText } from '@/components/ui/button';
+import { Pressable } from '@/components/ui/pressable';
+import { HStack } from '@/components/ui/hstack';
 import { useRouter } from 'expo-router';
 import { PracticeCard as PracticeCardType } from '../types';
 
@@ -55,77 +59,53 @@ export default function PracticeCard({ practice }: PracticeCardProps) {
 
   return (
     <Pressable
-      // 卡片容器样式：纯白色背景、圆角、增强阴影效果使其更突出
-      // 使用 flex-row 实现水平布局
-      bg="$white"
-      rounded="$2xl"
-      p="$5"
-      mb="$4"
-      flexDirection="row"
-      borderWidth={1}
-      borderColor="$gray100"
-      // 阴影效果（iOS）
-      shadowColor="$black"
-      shadowOffset={{ width: 0, height: 2 }}
-      shadowOpacity={0.1}
-      shadowRadius={4}
-      // Android 阴影效果
-      elevation={2}
+      // 卡片容器样式：纯白色背景、圆角、阴影效果
+      className="bg-white rounded-2xl p-5 mb-4 border border-gray-100 shadow-sm"
       // 绑定点击事件
       onPress={handleStartPractice}
     >
-      {/* 左侧图标区域 */}
-      <Box
-        // 图标容器：使用蓝色背景
-        // 宽度和高度固定，圆角设计
-        w="$9"
-        h="$9"
-        rounded="$xl"
-        alignItems="center"
-        justifyContent="center"
-        mr="$4"
-        flexShrink={0}
-        // 使用蓝色作为主色
-        bg="#3458f8"
-      >
-        {/* 图标文字：显示字母A表示AI患者 */}
-        <Text color="$white" fontWeight="$bold" fontSize="$xl">
-          A
-        </Text>
-      </Box>
-
-      {/* 右侧内容区域 */}
-      <Box flex={1}>
-        {/* 练习标题 */}
-        <Text fontSize="$md" fontWeight="$semibold" color="$gray900" mb="$1">
-          {practice.title}
-        </Text>
-        
-        {/* 练习描述 */}
-        <Text fontSize="$sm" color="$gray600" mb="$3" lineHeight={20}>
-          {practice.description}
-        </Text>
-
-        {/* 开始练习按钮 */}
-        <Button
-          // 按钮样式：蓝色背景、圆角、内边距
-          bg="$blue600"
-          rounded="$full"
-          px="$5"
-          py="$2"
-          alignSelf="flex-start"
-          // 阻止事件冒泡，避免触发卡片的点击事件
-          onPress={(e) => {
-            e.stopPropagation();
-            handleStartPractice();
-          }}
+      <HStack space="md" className="w-full">
+        {/* 左侧图标区域 */}
+        <Box
+          // 图标容器：使用蓝色背景，固定尺寸
+          // 使用 bg-[#3458f8] 来设置自定义蓝色背景色
+          className="w-9 h-9 rounded-xl shrink-0 bg-[#3458f8]"
         >
-          {/* 按钮文字 */}
-          <ButtonText color="$white" fontSize="$sm" fontWeight="$medium">
-            开始练习 →
-          </ButtonText>
-        </Button>
-      </Box>
+          {/* 图标文字：显示字母A表示AI患者 */}
+          <Text className="text-white font-bold text-xl text-center leading-9">
+            A
+          </Text>
+        </Box>
+
+        {/* 右侧内容区域 */}
+        <Box className="flex-1">
+          {/* 练习标题 */}
+          <Text className="text-base font-semibold text-gray-900 mb-1">
+            {practice.title}
+          </Text>
+          
+          {/* 练习描述 */}
+          <Text className="text-sm text-gray-600 mb-3 leading-5">
+            {practice.description}
+          </Text>
+
+          {/* 开始练习按钮 */}
+          <Button
+            // 按钮样式：蓝色背景、圆角、内边距
+            className="bg-blue-600 rounded-full px-5 py-2 self-start"
+            // 阻止事件冒泡，避免触发卡片的点击事件
+            onPress={(e) => {
+              e.stopPropagation();
+              handleStartPractice();
+            }}
+          >
+            {/* 按钮文字 */}
+            <ButtonText className="text-white text-sm font-medium">
+              开始练习 →
+            </ButtonText>
+          </Button>
+        </Box>
+      </HStack>
     </Pressable>
   );
 }

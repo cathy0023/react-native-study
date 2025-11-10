@@ -19,7 +19,8 @@
  * - gluestack UI 组件使用样式属性（如 bg、p、rounded）而不是 className
  */
 import React from 'react';
-import { Box, Text } from '@gluestack-ui/themed';
+import { Box } from '@/components/ui/box';
+import { Text } from '@/components/ui/text';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import BottomNav from '../components/BottomNav';
 
@@ -35,17 +36,14 @@ export default function Console() {
   const insets = useSafeAreaInsets();
 
   return (
-    <Box flex={1} bg="$gray50">
+    <Box className="flex-1 bg-gray-50">
       {/* 页面内容区域 */}
       <Box
-        flex={1}
-        alignItems="center"
-        justifyContent="center"
-        px="$4"
+        className="flex-1 items-center justify-center px-4"
         style={{ paddingBottom: 80 }} // 为底部导航栏留出空间
       >
         {/* 占位文字 */}
-        <Text fontSize="$xl" color="$gray600">
+        <Text className="text-xl text-gray-600">
           控制台页面
         </Text>
       </Box>

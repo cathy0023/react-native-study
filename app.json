@@ -2,6 +2,9 @@
   "scheme": "acme",
   "userInterfaceStyle": "automatic",
   "orientation": "default",
+  "android": {
+    "softwareKeyboardLayoutMode": "adjustResize"
+  },
   "web": {
     "output": "static"
   },

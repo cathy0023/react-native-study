@@ -13,16 +13,13 @@
  * - 支持页面返回功能（如练习页面返回到测评中心）
  * 
  * 依赖关系：
- * - 依赖 @gluestack-ui/themed 的 GluestackUIProvider 提供全局 UI 配置
+ * - 依赖 gluestack UI v3 的 GluestackUIProvider 提供全局 UI 配置
  * - 依赖 expo-router 的 Stack 组件进行导航栈管理
  * - 依赖全局样式文件
  */
 import "../global.css";
 import { Stack } from "expo-router";
-import { GluestackUIProvider } from "@gluestack-ui/themed";
-// 导入自定义主题配置
-// 这个配置包含了与原设计匹配的颜色、字体、间距等全局样式
-import { config } from "../../gluestack-ui.config";
+import { GluestackUIProvider } from "@/components/ui/gluestack-ui-provider";
 
 /**
  * 应用布局组件
@@ -39,7 +36,7 @@ import { config } from "../../gluestack-ui.config";
  */
 export default function Layout() {
   return (
-    <GluestackUIProvider config={config}>
+    <GluestackUIProvider mode="light">
       <Stack
         // 设置屏幕选项，隐藏默认的头部导航栏
         // 因为我们使用自定义的底部导航栏

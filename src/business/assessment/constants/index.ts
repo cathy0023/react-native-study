@@ -52,3 +52,6 @@ export const historyRecords: HistoryRecord[] = [
   },
 ];
 
+// 导出练习数据常量（从 practiceData.ts 重新导出，方便统一导入）
+export { practiceInfo, initialMessages } from './practiceData';
+
